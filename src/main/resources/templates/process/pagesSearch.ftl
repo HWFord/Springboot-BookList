@@ -22,9 +22,9 @@
 							</div>
 						</div>
 						<div class="col-12">
-							<input id="pagesSearch" name="pages" type="number" step="1" class="form-control" type="search" placeholder="394" aria-label="Search">
+							<input id="pagesSearch" name="pages" type="number" step="1" class="form-control" placeholder="394" aria-label="Search">
 							<small id="pagesHelp" class="form-text text-muted">Enter a number of pages and click the search button to bring up books with a number of pages either equal to or smaller or equal to and bigger than your search</small>
-							<#if errorMessage?has_content><p class="text-error">${errorMessage}</p></#if>
+							<#if errorMessage?has_content><p class="text-danger font-weight-bold">${errorMessage}</p></#if>
 						</div>
 						<div class="col-12 mt-1 text-center">
 							<input type="submit" class="btn btn-outline-success" value="Search by page numbers"/>
@@ -34,10 +34,11 @@
 			 </form>
 		</div>
 	</div>
+
 	<#if books?has_content>
 	<div class="row">
 		<div class="pt-4 col-12">
-			<p class="h5">Search results for <span class="text-success">${keyword}</span></p>
+				<p class="h5">Search results for books with <span class="text-success">${nbpages}</span> pages or ${option}</p>
 				<div class="row">
 					<div class="card-group">
 						<#list books as book>
@@ -70,6 +71,6 @@
 		</div>
 
 	<#else>
-	<p class="h5">No books correspond to search, or search is empty</p>
+	<p class="text-danger">No books correspond to search, or search is empty</p>
 	</#if>
 </div>

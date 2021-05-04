@@ -17,6 +17,7 @@
 	</div>
 	<div class="pt-4">
 		<div class="row">
+		<#if books?has_content>
 			<div class="card-group">
 				<#list books as book>
 				<div class="col-3 py-2 pb-4">
@@ -43,6 +44,11 @@
 					</div>
 				</#list>
 			</div>
+		<#else>
+		<div class="col-12">
+			<p class="text-danger">Sorry, there is currently no books for sale please contact a seller</p>
+		</div>
+		</#if>
 		</div>
 	</div>
 </div>

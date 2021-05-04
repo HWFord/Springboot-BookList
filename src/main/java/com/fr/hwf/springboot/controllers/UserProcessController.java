@@ -155,7 +155,7 @@ public class UserProcessController {
  				model.addAttribute("keyword", name);
 		    	model.addAttribute("books", books);
 		    	result = this.TEMPLATE_NAME + KEYWORD_SEARCH_TEMPLATE;
-	    	}else if(name.isBlank()) {
+	    	}else{
 	    		model.addAttribute("errorMessage", "this field cannot be empty");
 	    		result = this.TEMPLATE_NAME + KEYWORD_SEARCH_TEMPLATE;
 	    	}
@@ -178,7 +178,7 @@ public class UserProcessController {
 
     @RequestMapping(value = {"/login/{userId}/priceSearch"}, method = RequestMethod.POST)
     public String priceSearchResult(@PathVariable final Long userId, final Model model,
-    		@RequestParam(required=false) double price, @RequestParam("priceFilter") String option ) {
+    		@RequestParam(required=false) Double price, @RequestParam("priceFilter") String option ) {
 
     	String result = "redirect:" + "/process/login/" + userId;
 
@@ -186,23 +186,27 @@ public class UserProcessController {
     	model.addAttribute("person", person);
 
 	    try {
-	    	if (option == "bigger") {
+	    	if (option.contentEquals("bigger")) {
  				List<Book> books = bookService.filterPriceBiggerThan(price);
  				model.addAttribute("price", price);
+ 				model.addAttribute("option", option);
 		    	model.addAttribute("books", books);
 		    	result = this.TEMPLATE_NAME +PRICE_SEARCH_TEMPLATE;
-	    	}else if (option == "smaller"){
+	    	}else if (option.contentEquals("smaller")){
 	    		List<Book> books = bookService.filterPriceSmallerThan(price);
  				model.addAttribute("price", price);
+ 				model.addAttribute("option", option);
 		    	model.addAttribute("books", books);
 		    	result = this.TEMPLATE_NAME +PRICE_SEARCH_TEMPLATE;
-	    	}else {
-	    		model.addAttribute("errorMessage", "this field cannot be empty");
-	    		result = this.TEMPLATE_NAME + KEYWORD_SEARCH_TEMPLATE;
+	    	}
+	    	if(price.equals(null)){
+	    		model.addAttribute("errorMessage", "This field cannot be empty");
+	    		result = this.TEMPLATE_NAME +PRICE_SEARCH_TEMPLATE;
 	    	}
 	    } catch (Exception e) {
 	    	e.printStackTrace();
-	        result = this.TEMPLATE_NAME + KEYWORD_SEARCH_TEMPLATE;
+	    	model.addAttribute("errorMessage", "This field cannot be empty");
+	        result = this.TEMPLATE_NAME +PRICE_SEARCH_TEMPLATE;
 	    }
     	return result;
     }
@@ -225,22 +229,27 @@ public class UserProcessController {
     	model.addAttribute("person", person);
 
     	try {
-	    	if (option == "more") {
+    		System.err.println(option);
+	    	if (option.contentEquals("more")) {
  				List<Book> books = bookService.filterPagesMoreThan(pages);
  				model.addAttribute("nbpages", pages);
+ 				model.addAttribute("option", option);
 		    	model.addAttribute("books", books);
 		    	result = this.TEMPLATE_NAME +NBPAGES_SEARCH_TEMPLATE;
-	    	}else if(option == "less"){
+	    	}else if(option.contentEquals("less")){
 	    		List<Book> books = bookService.filterPagesLessThan(pages);
  				model.addAttribute("nbpages", pages);
+ 				model.addAttribute("option", option);
 		    	model.addAttribute("books", books);
 		    	result = this.TEMPLATE_NAME +NBPAGES_SEARCH_TEMPLATE;
-	    	} else if(option.isEmpty()) {
+	    	}
+	    	if(pages.equals(null)) {
 	    		model.addAttribute("errorMessage", "this field cannot be empty");
 	    		result = this.TEMPLATE_NAME +NBPAGES_SEARCH_TEMPLATE;
 	    	}
 	    } catch (Exception e) {
 	    	e.printStackTrace();
+	    	model.addAttribute("errorMessage", "This field cannot be empty");
 	        result = this.TEMPLATE_NAME +NBPAGES_SEARCH_TEMPLATE;
 	    }
     	return result;

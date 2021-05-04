@@ -15,9 +15,10 @@
 						<div class="col-12">
 							<input id="titleSearch" name="name" class="form-control" type="search" placeholder="Book title" aria-label="Search">
 							<small id="titleHelp" class="form-text text-muted">Enter some letters and click the search button to bring up books with titles similar to your search</small>
-							<#if errorMessage?has_content><p class="text-error">${errorMessage.value}</p></#if>
+							<#if errorMessage?has_content><p class="text-danger font-weight-bold">${errorMessage}</p></#if>
 						</div>
 						<div class="col-12 mt-1 text-center">
+							<#if titleHelp?has_content>YESSSSSSS</#if>
 							<input type="submit" class="btn btn-outline-success" value="Search by title"/>
 						</div>
 				    </div>
@@ -61,7 +62,7 @@
 		</div>
 
 	<#else>
-	<p class="h5">No books correspond to search, or search is empty</p>
+	<p class="text-danger">No books correspond to search, or search is empty</p>
 	</#if>
 
 </div>

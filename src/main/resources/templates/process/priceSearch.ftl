@@ -24,7 +24,7 @@
 						<div class="col-12">
 							<input id="titleSearch" name="price" type="number" step="0.01" class="form-control" type="search" placeholder="20.00" aria-label="Search">
 							<small id="titleHelp" class="form-text text-muted">Enter a price and click the search button to bring up books with prices either equal to or smaller or equal to and bigger than your search</small>
-							<#if errorMessage?has_content><p class="text-error">${errorMessage}</p></#if>
+							<#if errorMessage?has_content><p class="text-danger font-weight-bold">${errorMessage}</p></#if>
 						</div>
 						<div class="col-12 mt-1 text-center">
 							<input type="submit" class="btn btn-outline-success" value="Search by price"/>
@@ -37,7 +37,8 @@
 	<#if books?has_content>
 	<div class="row">
 		<div class="pt-4 col-12">
-			<p class="h5">Search results for <span class="text-success">${price}</span></p>
+			<p class="h5">Search results for books with a price equal to <span class="text-success">${price}$</span> or ${option}</p>
+				<div class="row">
 				<div class="row">
 					<div class="card-group">
 						<#list books as book>
@@ -70,6 +71,6 @@
 		</div>
 
 	<#else>
-	<p class="h5">No books correspond to search, or search is empty</p>
+	<p class="text-danger">No books correspond to search, or search is empty</p>
 	</#if>
 </div>
